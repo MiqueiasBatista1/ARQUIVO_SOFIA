@@ -1,0 +1,27 @@
+﻿# Mídia pesada
+*.mp4
+*.mov
+*.mkv
+*.webm
+*.avi
+*.m4v
+*.wav
+*.mp3
+
+# Imagens e frames
+*.jpg
+*.jpeg
+*.png
+*.webp
+
+# Artefatos de ingestão pesados
+06_GERADOS/ingestion_test/
+
+# Cache Python
+__pycache__/
+*.pyc
+
+# Ambiente local
+.env
+.venv/
+venv/

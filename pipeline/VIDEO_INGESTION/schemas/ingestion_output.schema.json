@@ -1,0 +1,112 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ingestion_output.schema.json",
+  "title": "VideoIngestionOutput",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "source", "status", "resolved_media_path", "media_metadata", "audio_path",
+    "transcript", "translated_transcript", "frames", "scenes", "ocr", "warnings"
+  ],
+  "properties": {
+    "source": { "$ref": "video_input.schema.json" },
+    "status": { "enum": ["complete", "partial"] },
+    "resolved_media_path": { "type": ["string", "null"] },
+    "media_metadata": { "type": "object", "additionalProperties": true },
+    "audio_path": { "type": ["string", "null"] },
+    "transcript": { "type": "array", "items": { "$ref": "#/$defs/transcript_segment" } },
+    "transcription_result": {
+      "anyOf": [
+        { "$ref": "#/$defs/transcription_result" },
+        { "type": "null" }
+      ]
+    },
+    "translated_transcript": { "type": "array", "items": { "$ref": "#/$defs/transcript_segment" } },
+    "frames": { "type": "array", "items": { "$ref": "#/$defs/frame" } },
+    "scenes": { "type": "array", "items": { "$ref": "scene.schema.json" } },
+    "ocr": { "type": "array", "items": { "$ref": "#/$defs/ocr_result" } },
+    "warnings": { "type": "array", "items": { "type": "string" } }
+  },
+  "$defs": {
+    "transcript_segment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["start_seconds", "end_seconds", "text", "language"],
+      "properties": {
+        "start_seconds": { "type": ["number", "null"], "minimum": 0 },
+        "end_seconds": { "type": ["number", "null"], "exclusiveMinimum": 0 },
+        "text": { "type": "string", "minLength": 1 },
+        "language": { "type": ["string", "null"] },
+        "confidence": { "type": ["number", "null"], "minimum": 0, "maximum": 1 },
+        "speaker": { "type": ["string", "null"] }
+      }
+    },
+    "transcription_result": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "text", "language", "segments", "provider", "model", "source_audio", "error"],
+      "properties": {
+        "status": { "enum": ["SUCCESS", "PARTIAL", "ERROR"] },
+        "text": { "type": "string" },
+        "language": { "type": ["string", "null"] },
+        "segments": { "type": "array", "items": { "$ref": "#/$defs/transcription_result_segment" } },
+        "provider": { "type": ["string", "null"] },
+        "model": { "type": ["string", "null"] },
+        "source_audio": { "type": ["string", "null"] },
+        "error": {
+          "anyOf": [
+            { "$ref": "#/$defs/transcription_error" },
+            { "type": "null" }
+          ]
+        }
+      }
+    },
+    "transcription_result_segment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["start", "end", "text", "language", "confidence", "speaker"],
+      "properties": {
+        "start": { "type": ["number", "null"], "minimum": 0 },
+        "end": { "type": ["number", "null"], "exclusiveMinimum": 0 },
+        "text": { "type": "string", "minLength": 1 },
+        "language": { "type": ["string", "null"] },
+        "confidence": { "type": ["number", "null"], "minimum": 0, "maximum": 1 },
+        "speaker": { "type": ["string", "null"] }
+      }
+    },
+    "transcription_error": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["code", "message", "cause_type"],
+      "properties": {
+        "code": {
+          "enum": [
+            "AUDIO_NOT_FOUND", "AUDIO_INVALID", "UNSUPPORTED_LANGUAGE", "PROVIDER_NOT_CONFIGURED",
+            "PROVIDER_AUTH_ERROR", "PROVIDER_RATE_LIMIT", "PROVIDER_UNAVAILABLE", "TRANSCRIPTION_FAILED"
+          ]
+        },
+        "message": { "type": "string", "minLength": 1 },
+        "cause_type": { "type": ["string", "null"] }
+      }
+    },
+    "frame": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["timestamp_seconds", "path"],
+      "properties": {
+        "timestamp_seconds": { "type": "number", "minimum": 0 },
+        "path": { "type": "string", "minLength": 1 }
+      }
+    },
+    "ocr_result": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["timestamp_seconds", "text", "confidence"],
+      "properties": {
+        "timestamp_seconds": { "type": "number", "minimum": 0 },
+        "text": { "type": "string", "minLength": 1 },
+        "confidence": { "type": ["number", "null"], "minimum": 0, "maximum": 1 }
+      }
+    }
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "scene.schema.json",
+  "title": "VideoScene",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["start_seconds", "end_seconds"],
+  "properties": {
+    "start_seconds": { "type": "number", "minimum": 0 },
+    "end_seconds": { "type": "number", "exclusiveMinimum": 0 },
+    "visual_description": { "type": ["string", "null"] },
+    "main_action": { "type": ["string", "null"] },
+    "person_character": {
+      "type": ["string", "null"],
+      "description": "Optional non-identifying role or presence label; do not describe physical appearance."
+    },
+    "product": { "type": ["string", "null"] },
+    "environment": { "type": ["string", "null"] },
+    "framing": { "type": ["string", "null"] },
+    "camera_movement": { "type": ["string", "null"] },
+    "on_screen_text": { "type": "array", "items": { "type": "string" } },
+    "speech": { "type": ["string", "null"] },
+    "audio_music": { "type": ["string", "null"] },
+    "cta": { "type": ["string", "null"] },
+    "perceived_emotion": {
+      "type": ["string", "null"],
+      "description": "Interpretation; retain a review marker and do not treat as directly observed fact."
+    },
+    "observations": { "type": "array", "items": { "type": "string" } }
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "content_type": "",
+  "ugc_template": "",
+  "hook": "",
+  "problem": "",
+  "mechanism": "",
+  "product": null,
+  "core_benefit": null,
+  "scene_structure": [
+    {
+      "beat": "",
+      "purpose": "",
+      "action": "",
+      "duration_seconds": null
+    }
+  ],
+  "dialogue": null,
+  "actions": [],
+  "camera": null,
+  "lighting": null,
+  "location": null,
+  "emotion": null,
+  "retention_devices": [],
+  "cta": "",
+  "duration_seconds": null,
+  "adaptation_notes": [],
+  "originality_notes": []
+}
