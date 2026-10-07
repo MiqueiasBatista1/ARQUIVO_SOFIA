@@ -23,5 +23,31 @@ __pycache__/
 
 # Ambiente local
 .env
+.env.*
+*.env
+!.env.example
+!.env.template
 .venv/
 venv/
+
+# Chaves privadas e credenciais locais
+*.pem
+*.key
+*.p12
+*.pfx
+*.p7b
+*.p7c
+*.jks
+*.keystore
+*.kdb
+*.ppk
+id_rsa
+id_rsa.*
+id_dsa
+id_dsa.*
+id_ecdsa
+id_ecdsa.*
+id_ed25519
+id_ed25519.*
+credentials.json
+secrets.json

@@ -21,7 +21,7 @@ Requer Python 3.10+. Para processamento de mídia, instale FFmpeg e ffprobe (ger
 python -m pip install "scenedetect[opencv]"
 ```
 
-Nenhuma ferramenta é instalada pelo código. Transcrição, tradução e OCR ainda não têm adapters concretos e não requerem APIs nesta etapa. Whisper/Groq poderão ser conectados depois pela interface `Transcriber`.
+Nenhuma ferramenta é instalada pelo código. A transcrição opcional tem um adapter Groq configurado pela interface `Transcriber`; tradução e OCR ainda não têm adapters concretos e não requerem APIs nesta etapa.
 
 ## Execução local
 
@@ -47,7 +47,7 @@ Metadados de mídia têm duração, container, tamanho, bitrate, codec, resoluç
 ## Limitações atuais
 
 - Sem downloader integrado para URL.
-- Sem adapters concretos de transcrição, tradução ou OCR.
+- Transcrição Groq é opcional e só é ativada quando configurada; tradução e OCR ainda não têm adapters concretos.
 - PySceneDetect informa limites; não descreve semanticamente cenas. Descrição visual, diálogo, produto e outros campos continuam vazios até análise posterior.
 - Frames são amostrados somente nos pontos médios das cenas.
 - Resultado `partial` indica etapas não configuradas, não ausência de conteúdo no vídeo.
